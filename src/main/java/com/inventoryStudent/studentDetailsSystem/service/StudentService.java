@@ -12,4 +12,6 @@ public interface StudentService {
     List<Student> getAllBooks();
 
     Optional<Student> getStudentDetailsByCode(String student_code);
+
+    Student updateStudentByCode(String studentCode, Student updatedStudent);
 }
