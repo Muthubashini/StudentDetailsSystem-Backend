@@ -51,4 +51,13 @@ public class StudentServiceImpl implements StudentService{
             return studentRepository.save(existingStudent);
         }).orElseThrow(() -> new RuntimeException("Student with code " + student_code + " not found"));
     }
+
+    @Override
+    @Transactional
+    public Optional<Student> deleteStudentByCode(String student_code) {
+        return studentRepository.findByStudent_code(student_code).map(student -> {
+            studentRepository.delete(student);
+            return student;
+        });
+    }
 }
