@@ -10,4 +10,6 @@ public interface StudentService {
     Student createNewStudent(Student student);
 
     List<Student> getAllBooks();
+
+    Optional<Student> getStudentDetailsByCode(String student_code);
 }

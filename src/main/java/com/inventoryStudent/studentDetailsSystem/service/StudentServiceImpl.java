@@ -34,4 +34,9 @@ public class StudentServiceImpl implements StudentService{
     public List<Student> getAllBooks() {
         return studentRepository.findAll();
     }
+
+    @Override
+    public Optional<Student> getStudentDetailsByCode(String student_code) {
+        return studentRepository.findByStudent_code(student_code);
+    }
 }
