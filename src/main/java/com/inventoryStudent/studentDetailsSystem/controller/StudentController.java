@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/student")
@@ -29,5 +31,12 @@ public class StudentController {
         }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
+    }
+
+    // endpoint to get all books
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Student>> getAllStudents() {
+        List<Student> books = studentService.getAllBooks();
+        return ResponseEntity.status(HttpStatus.OK).body(books);
     }
 }
