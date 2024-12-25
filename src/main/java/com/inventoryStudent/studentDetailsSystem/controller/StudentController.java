@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -27,7 +27,7 @@ public class StudentController {
 
     // New endpoint: Create new student
     @PostMapping("/add")
-    public ResponseEntity<?> addStudent(@Valid @RequestBody Student student) {
+    public ResponseEntity<?> addStudent(@RequestBody Student student) {
 
         try{
             Student createStudent = studentService.createNewStudent(student);
@@ -68,8 +68,8 @@ public class StudentController {
     }
 
     // New endpoint: delete student by code
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteStudentByCode(@Param("student_code") String student_code) {
+    @DeleteMapping("/delete/{student_code}")
+    public ResponseEntity<String> deleteStudentByCode(@PathVariable String student_code) {
         Optional<Student> student = studentService.deleteStudentByCode(student_code);
         if (student.isPresent()) {
             return ResponseEntity.ok("Deleted successfully");

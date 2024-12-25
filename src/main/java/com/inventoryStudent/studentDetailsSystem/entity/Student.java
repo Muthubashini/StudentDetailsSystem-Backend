@@ -11,14 +11,26 @@ import lombok.*;
 @Entity
 @Table(name = "student")
 public class Student {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private long id;
 
     @Column(name = "student_code" , unique = true, nullable = false)
-    @NotBlank(message = "Student code cannot be null or blank")
     private String student_code;
+
+    @Column(name="student_name")
+    private String student_name;
+
+    @Column(name="student_age")
+    private int student_age;
+
+    @Column(name="student_nic")
+    private String student_nic;
+
+    @Column(name="home_town")
+    private String home_town;
 
     public void setId(long id) {
         this.id = id;
@@ -79,16 +91,5 @@ public class Student {
         this.home_town = home_town;
     }
 
-    @Column(name="student_name")
-    private String student_name;
-
-    @Column(name="student_age")
-    private int student_age;
-
-    @Column(name="student_nic")
-    private String student_nic;
-
-    @Column(name="home_town")
-    private String home_town;
 
 }
