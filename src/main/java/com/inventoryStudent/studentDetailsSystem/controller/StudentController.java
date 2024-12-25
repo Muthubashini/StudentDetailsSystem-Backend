@@ -11,24 +11,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-//@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
     private final StudentService studentService;
-    private final StudentRepository studentRepository;
 
     @Autowired
     public StudentController(StudentService studentService, StudentRepository studentRepository) {
         this.studentService = studentService;
-        this.studentRepository = studentRepository;
     }
 
     // New endpoint: Create new student
     @PostMapping("/add")
-    public ResponseEntity<?> addStudent(@Valid @RequestBody Student student) {
+    public ResponseEntity<?> addStudent(@RequestBody Student student) {
 
         try{
             Student createStudent = studentService.createNewStudent(student);
@@ -65,6 +64,17 @@ public class StudentController {
             return ResponseEntity.ok(updated);
         } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    // New endpoint: delete student by code
+    @DeleteMapping("/delete/{student_code}")
+    public ResponseEntity<String> deleteStudentByCode(@PathVariable String student_code) {
+        Optional<Student> student = studentService.deleteStudentByCode(student_code);
+        if (student.isPresent()) {
+            return ResponseEntity.ok("Deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with code " + student_code + " not found");
         }
     }
 

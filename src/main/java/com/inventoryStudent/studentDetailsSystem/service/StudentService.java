@@ -14,4 +14,6 @@ public interface StudentService {
     Optional<Student> getStudentDetailsByCode(String student_code);
 
     Student updateStudentByCode(String studentCode, Student updatedStudent);
+
+    Optional<Student> deleteStudentByCode(String studentCode);
 }

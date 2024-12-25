@@ -23,11 +23,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Student createNewStudent(Student student) {
-
-        student = new Student();
-
         return studentRepository.save(student);
-
     }
 
     @Override
@@ -50,5 +46,14 @@ public class StudentServiceImpl implements StudentService{
             existingStudent.setHome_town(updatedStudent.getHome_town());
             return studentRepository.save(existingStudent);
         }).orElseThrow(() -> new RuntimeException("Student with code " + student_code + " not found"));
+    }
+
+    @Override
+    @Transactional
+    public Optional<Student> deleteStudentByCode(String student_code) {
+        return studentRepository.findByStudent_code(student_code).map(student -> {
+            studentRepository.delete(student);
+            return student;
+        });
     }
 }
