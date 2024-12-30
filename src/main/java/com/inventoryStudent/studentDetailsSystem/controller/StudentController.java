@@ -45,8 +45,8 @@ public class StudentController {
     }
 
     // New endpoint: Get student by code
-    @GetMapping("/getByCode")
-    public ResponseEntity<Student> getStudentByCode(@Param("student_code") String student_code) {
+    @GetMapping("/getByCode/{student_code}")
+    public ResponseEntity<Student> getStudentByCode(@PathVariable String student_code) {
         return studentService.getStudentDetailsByCode(student_code)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
